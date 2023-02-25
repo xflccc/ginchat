@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// ConfigFileInit 读取配置文件
+// ConfigFileInit 读取配置文件(viper框架)
 func ConfigFileInit() {
 	viper.SetConfigName("app")
 	viper.AddConfigPath("config")
