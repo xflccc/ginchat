@@ -2,6 +2,11 @@ package utils
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"time"
+
+	"gorm.io/gorm/logger"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -24,11 +29,20 @@ func ConfigFileInit() {
 var DB *gorm.DB
 
 func MysqlInit() {
+	//日志配置
+	logger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags),
+		logger.Config{
+			SlowThreshold: time.Second, //慢sql阈值
+			LogLevel:      logger.Info, // 日志级别
+			Colorful:      true,        //打印日志颜色
+		})
+
 	// 声明err变量，下面不能使用:=赋值运算符，否则_db变量会当成局部变量，导致外部无法访问_db变量
 	var err error
 	//连接MYSQL, 获得DB类型实例，用于后面的数据库读写操作。
 	fmt.Println("mysql.dns===", viper.GetString("mysql.dns"))
-	DB, err = gorm.Open(mysql.Open(viper.GetString("mysql.dns")), &gorm.Config{})
+	DB, err = gorm.Open(mysql.Open(viper.GetString("mysql.dns")), &gorm.Config{Logger: logger}) // 配置mysql连接 和 添加日志配置
 	if err != nil {
 		panic("连接数据库失败, error=" + err.Error())
 	}

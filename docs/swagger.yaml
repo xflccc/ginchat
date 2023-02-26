@@ -1,0 +1,25 @@
+info:
+  contact: {}
+paths:
+  /get-all-user/index:
+    get:
+      responses:
+        "200":
+          description: code","userList"}
+          schema:
+            type: string
+  /get-user-by-name/index:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+  /index:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+swagger: "2.0"
