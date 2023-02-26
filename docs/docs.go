@@ -15,8 +15,44 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/get-all-user/index": {
+        "/index": {
             "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/create-user": {
+            "get": {
+                "summary": "创建用户",
+                "parameters": [
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "用户名称",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "密码",
+                        "name": "passwordv2",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "code\",\"userList\"}",
@@ -27,8 +63,54 @@ const docTemplate = `{
                 }
             }
         },
-        "/get-user-by-name/index": {
+        "/user/delete-user": {
+            "delete": {
+                "summary": "删除用户",
+                "parameters": [
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "用户id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\",\"userList\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/get-all-user": {
             "get": {
+                "summary": "获取所有用户",
+                "responses": {
+                    "200": {
+                        "description": "code\",\"userList\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/get-user-by-name": {
+            "get": {
+                "summary": "根据用户名获取用户",
+                "parameters": [
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "用户名称",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -39,11 +121,46 @@ const docTemplate = `{
                 }
             }
         },
-        "/index": {
-            "get": {
+        "/user/update-user": {
+            "put": {
+                "summary": "修改用户",
+                "parameters": [
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "用户id",
+                        "name": "id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "用户名称",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "用户密码",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "用户手机号",
+                        "name": "phone",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "code\",\"userList\"}",
                         "schema": {
                             "type": "string"
                         }

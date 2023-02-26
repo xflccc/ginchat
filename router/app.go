@@ -20,8 +20,11 @@ func Router() *gin.Engine {
 	//欢迎页
 	r.GET("/index", service.GetIndex) //掉用service 层
 	//user 表相关
-	r.GET("get-user-by-name/index", service.GetUserByName)
-	r.GET("get-all-user/index", service.GetAllUserList)
+	r.GET("/user/get-user-by-name", service.GetUserByName)
+	r.GET("/user/get-all-user", service.GetAllUserList)
+	r.GET("/user/create-user", service.CreateUser)
+	r.DELETE("/user/delete-user", service.DeleteUser)
+	r.PUT("/user/update-user", service.UpdateUser)
 
 	return r
 }
