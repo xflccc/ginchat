@@ -1,14 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is cxy api docs.",
         "title": "用户聊天系统",
-        "contact": {
-            "name": "go-swagger帮助文档"
-        },
-        "license": {
-            "name": "Apache 2.0"
-        },
+        "contact": {},
         "version": "1.0"
     },
     "paths": {

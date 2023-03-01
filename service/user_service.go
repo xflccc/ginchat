@@ -98,7 +98,7 @@ func CreateUser(c *gin.Context) {
 	}
 	user := models.UserBasic{}
 	user.Name = name
-	user.PassWord = password
+	user.PassWord = utils.MakePassword(password, utils.MakeSalt())
 	user.Phone = phone
 	models.CreateUser(&user) //dao
 	c.JSON(200, gin.H{
