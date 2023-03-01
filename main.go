@@ -5,6 +5,8 @@ import (
 	"GinChat/utils"
 )
 
+// @Title 用户聊天系统
+// @version 1.0
 func main() {
 	//初始化配置
 	utils.ConfigFileInit()

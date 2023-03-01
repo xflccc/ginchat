@@ -52,3 +52,27 @@ func UpdateUser(user *UserBasic) *gorm.DB {
 	db := utils.GetDB()
 	return db.Model(&user).Updates(UserBasic{Name: user.Name, PassWord: user.PassWord, Phone: user.Phone})
 }
+
+// GetUserByPhone (函数) 根据手机号获取用户
+func GetUserByPhone(phone string) UserBasic {
+	user := UserBasic{}
+	db := utils.GetDB()
+	db.Where("phone = ?", phone).First(&user)
+	return user
+}
+
+// GetUserByName (函数) 根据用户名获取用户
+func GetUserByName(name string) UserBasic {
+	user := UserBasic{}
+	db := utils.GetDB()
+	db.Where("name = ?", name).First(&user)
+	return user
+}
+
+// GetUserByEmail (函数) 根据邮箱获取用户
+func GetUserByEmail(email string) UserBasic {
+	user := UserBasic{}
+	db := utils.GetDB()
+	db.Where("email = ?", email).First(&user)
+	return user
+}

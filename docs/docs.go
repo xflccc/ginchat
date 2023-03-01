@@ -9,7 +9,12 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "contact": {
+            "name": "go-swagger帮助文档"
+        },
+        "license": {
+            "name": "Apache 2.0"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -29,7 +34,7 @@ const docTemplate = `{
         },
         "/user/create-user": {
             "get": {
-                "summary": "创建用户",
+                "summary": "注册用户",
                 "parameters": [
                     {
                         "maxLength": 100,
@@ -50,6 +55,13 @@ const docTemplate = `{
                         "type": "string",
                         "description": "密码",
                         "name": "passwordv2",
+                        "in": "query"
+                    },
+                    {
+                        "maxLength": 100,
+                        "type": "string",
+                        "description": "手机号",
+                        "name": "phone",
                         "in": "query"
                     }
                 ],
@@ -173,12 +185,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "1.0",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "用户聊天系统",
+	Description:      "This is cxy api docs.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

@@ -5,6 +5,7 @@ import (
 	"GinChat/utils"
 	"encoding/json"
 	"fmt"
+
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -55,24 +56,50 @@ func GetAllUserList(c *gin.Context) {
 
 // CreateUser
 // @Tag 用户基本信息
-// @Summary 创建用户
+// @Summary 注册用户
 // @Param name query string false "用户名称" maxlength(100)
 // @Param password query string false "密码" maxlength(100)
 // @Param passwordv2 query string false "密码" maxlength(100)
+// @Param phone query string false "手机号" maxlength(100)
 // @Success 200 {string} json {"code","userList"}
 // @Router /user/create-user [get]
 func CreateUser(c *gin.Context) {
+	name := c.Query("name")
 	password := c.Query("password")
 	passwordv2 := c.Query("passwordv2")
+	phone := c.Query("phone")
 	if password != passwordv2 {
-		c.JSON(200, gin.H{
+		c.JSON(500, gin.H{
 			"message": "密码不一样！",
 		})
 		return
 	}
+	//校验手机哈是否合法
+	if !utils.VerifyMobileFormat(phone) {
+		c.JSON(500, gin.H{
+			"message": "手机号格式错误，请重新输入！",
+		})
+		return
+	}
+	//查看用户名是否已经存在
+	oldUser := models.GetUserByName(name)
+	if oldUser.ID != 0 {
+		c.JSON(500, gin.H{
+			"message": "用户名已经存在，请重新输入！",
+		})
+		return
+	}
+	//判断手机号码是否存在
+	if models.GetUserByPhone(phone).ID != 0 {
+		c.JSON(500, gin.H{
+			"message": "手机号码已经存在，请重新输入！",
+		})
+		return
+	}
 	user := models.UserBasic{}
-	user.Name = c.Query("name")
+	user.Name = name
 	user.PassWord = password
+	user.Phone = phone
 	models.CreateUser(&user) //dao
 	c.JSON(200, gin.H{
 		"message": "添加用户成功",

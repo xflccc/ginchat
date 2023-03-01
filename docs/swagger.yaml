@@ -1,5 +1,11 @@
 info:
-  contact: {}
+  contact:
+    name: go-swagger帮助文档
+  description: This is cxy api docs.
+  license:
+    name: Apache 2.0
+  title: 用户聊天系统
+  version: "1.0"
 paths:
   /index:
     get:
@@ -26,12 +32,17 @@ paths:
         maxLength: 100
         name: passwordv2
         type: string
+      - description: 手机号
+        in: query
+        maxLength: 100
+        name: phone
+        type: string
       responses:
         "200":
           description: code","userList"}
           schema:
             type: string
-      summary: 创建用户
+      summary: 注册用户
   /user/delete-user:
     delete:
       parameters:
